@@ -1,0 +1,456 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API Reference &mdash; derpeddit 1.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="derpeddit 1.0 documentation" href="index.html"/>
+        <link rel="next" title="Glossary" href="glossary.html"/>
+        <link rel="prev" title="Your assignment" href="assignment.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> derpeddit</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="assignment.html">Your assignment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="assignment.html#about-assignment">About assignment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assignment.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assignment.html#workflow">Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#general-information">General information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authentication-and-registration">Authentication and registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#posts">Posts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">derpeddit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/apis.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="general-information">
+<h2>General information<a class="headerlink" href="#general-information" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="api-endpoint">
+<h3>API Endpoint<a class="headerlink" href="#api-endpoint" title="Permalink to this headline">¶</a></h3>
+<p>API Server URL: <a class="reference external" href="https://derpeddit.heroku.com">https://derpeddit.heroku.com</a></p>
+</div>
+<div class="section" id="validation-errors">
+<h3>Validation Errors<a class="headerlink" href="#validation-errors" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>Invalid field value</dt>
+<dd><p class="first">In cases when an invalid value specified for a field, or field is missing in supplied payload</p>
+<p><strong>Example</strong>:</p>
+<div class="last highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">400</span> <span class="ne">BAD REQUEST</span>
+
+{&quot;password&quot;: [&quot;This field is required.&quot;]}
+</pre></div>
+</div>
+</dd>
+<dt>Non-field errors</dt>
+<dd><p class="first">In cases when payload was correct, but some constraint has been violated</p>
+<p><strong>Example</strong>:</p>
+<div class="last highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">401</span> <span class="ne">UNAUTHORIZED</span>
+
+{&quot;non_field_errors&quot;: &quot;Login and password do not match&quot;}
+</pre></div>
+</div>
+</dd>
+<dt>Invalid payload</dt>
+<dd><p class="first">In cases when an invalid JSON payload supplied</p>
+<p><strong>Example</strong>:</p>
+<div class="last highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">400</span> <span class="ne">BAD REQUEST</span>
+
+{&quot;detail&quot;: &quot;JSON parse error - Expecting &#39;,&#39; delimiter: line 1 column 19 (char 18)&quot;}
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="authentication-and-registration">
+<h2>Authentication and registration<a class="headerlink" href="#authentication-and-registration" title="Permalink to this headline">¶</a></h2>
+<p>Derpeddit uses <strong>cookie based</strong> authentication. In order to get auth cookie, you have to log in first.</p>
+<div class="section" id="registration">
+<h3>Registration<a class="headerlink" href="#registration" title="Permalink to this headline">¶</a></h3>
+<dl class="post">
+<dt id="post--api-v1-core-auth-signup">
+<tt class="descname">POST </tt><tt class="descname">/api/v1/core/auth/signup</tt><a class="headerlink" href="#post--api-v1-core-auth-signup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers a new user</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">JSON Parameters:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><strong>login</strong> (<em>string</em>) &#8211; password</li>
+<li><strong>password</strong> (<em>string</em>) &#8211; password</li>
+<li><strong>name</strong> (<em>string</em>) &#8211; users last name</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Request Headers:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><strong>Content-type</strong> &#8211; mandatory header, must be <cite>application/json</cite></li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><strong>201</strong> &#8211; user created</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="logging-in">
+<h3>Logging in<a class="headerlink" href="#logging-in" title="Permalink to this headline">¶</a></h3>
+<dl class="post">
+<dt id="post--api-v1-core-auth-login">
+<tt class="descname">POST </tt><tt class="descname">/api/v1/core/auth/login</tt><a class="headerlink" href="#post--api-v1-core-auth-login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Authenticates user against <cite>login</cite> and <cite>password</cite>.</p>
+<p>Before you can log in you&#8217;ll have to sign up.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">JSON Parameters:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><strong>login</strong> (<em>string</em>) &#8211; login</li>
+<li><strong>password</strong> (<em>string</em>) &#8211; password</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Request Headers:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<li><strong>Content-type</strong> &#8211; mandatory header, which must be <cite>application/json</cite></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example request</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/api/v1/core/auth/login</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">derpeddit.herokuapp.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json;charset=UTF-8</span>
+
+<span class="p">{</span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="s2">&quot;bar&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example response - incorrect login and password</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">401</span> <span class="ne">UNAUTHORIZED</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span><span class="nt">&quot;non_field_errors&quot;</span><span class="p">:</span> <span class="s2">&quot;Login and password do not match&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="logging-out">
+<h3>Logging out<a class="headerlink" href="#logging-out" title="Permalink to this headline">¶</a></h3>
+<dl class="post">
+<dt id="post--api-v1-core-auth-logout">
+<tt class="descname">POST </tt><tt class="descname">/api/v1/core/auth/logout</tt><a class="headerlink" href="#post--api-v1-core-auth-logout" title="Permalink to this definition">¶</a></dt>
+<dd><p>De-authenticates user</p>
+</dd></dl>
+
+</div>
+<div class="section" id="current-user-profile">
+<h3>Current user profile<a class="headerlink" href="#current-user-profile" title="Permalink to this headline">¶</a></h3>
+<dl class="get">
+<dt id="get--api-v1-core-auth-profile">
+<tt class="descname">GET </tt><tt class="descname">/api/v1/core/auth/profile</tt><a class="headerlink" href="#get--api-v1-core-auth-profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns current user profile</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="posts">
+<h2>Posts<a class="headerlink" href="#posts" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get-all-posts">
+<h3>Get all posts<a class="headerlink" href="#get-all-posts" title="Permalink to this headline">¶</a></h3>
+<dl class="get">
+<dt id="get--api-v1-posts">
+<tt class="descname">GET </tt><tt class="descname">/api/v1/posts</tt><a class="headerlink" href="#get--api-v1-posts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all posts
+:param string mode: to sort posts by vote score - <cite>top</cite>, to sort by create time - <cite>newest</cite></p>
+</dd></dl>
+
+</div>
+<div class="section" id="create-a-new-post">
+<h3>Create a new post<a class="headerlink" href="#create-a-new-post" title="Permalink to this headline">¶</a></h3>
+<dl class="post">
+<dt id="post--api-v1-posts">
+<tt class="descname">POST </tt><tt class="descname">/api/v1/posts</tt><a class="headerlink" href="#post--api-v1-posts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a news <a class="reference internal" href="glossary.html#term-post"><em class="xref std std-term">post</em></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">JSON Parameters:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<li><strong>title</strong> (<em>string</em>) &#8211; Post title</li>
+<li><strong>link</strong> (<em>string</em>) &#8211; URL if its a &#8220;Link post&#8221;</li>
+<li><strong>text</strong> (<em>string</em>) &#8211; text if its a &#8220;Text post&#8221;</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="upvote-a-post">
+<h3>Upvote a post<a class="headerlink" href="#upvote-a-post" title="Permalink to this headline">¶</a></h3>
+<dl class="put">
+<dt id="put--api-v1-posts-(post_id)-vote">
+<tt class="descname">PUT </tt><tt class="descname">/api/v1/posts/</tt><big>(</big><em>post_id</em><big>)</big><tt class="descname">/vote</tt><a class="headerlink" href="#put--api-v1-posts-(post_id)-vote" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a news <a class="reference internal" href="glossary.html#term-post"><em class="xref std std-term">post</em></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>post_id</strong> (<em>number</em>) &#8211; Post id</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">JSON Parameters:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<li><strong>positive</strong> (<em>bool</em>) &#8211; must be true</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="downvote-a-post">
+<h3>Downvote a post<a class="headerlink" href="#downvote-a-post" title="Permalink to this headline">¶</a></h3>
+<dl class="put">
+<dt id="put--api-v1-posts-(post_id)-vote">
+<tt class="descname">PUT </tt><tt class="descname">/api/v1/posts/</tt><big>(</big><em>post_id</em><big>)</big><tt class="descname">/vote</tt><a class="headerlink" href="#put--api-v1-posts-(post_id)-vote" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a news <a class="reference internal" href="glossary.html#term-post"><em class="xref std std-term">post</em></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>post_id</strong> (<em>number</em>) &#8211; Post id</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">JSON Parameters:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<li><strong>negative</strong> (<em>bool</em>) &#8211; must be true</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="get-post-comments">
+<h3>Get post comments<a class="headerlink" href="#get-post-comments" title="Permalink to this headline">¶</a></h3>
+<dl class="get">
+<dt id="get--api-v1-posts-(post_id)-comment">
+<tt class="descname">GET </tt><tt class="descname">/api/v1/posts/</tt><big>(</big><em>post_id</em><big>)</big><tt class="descname">/comment</tt><a class="headerlink" href="#get--api-v1-posts-(post_id)-comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a news <a class="reference internal" href="glossary.html#term-post"><em class="xref std std-term">post</em></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>post_id</strong> (<em>number</em>) &#8211; Post id</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">JSON Parameters:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<li><strong>positive</strong> (<em>bool</em>) &#8211; must be true</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="make-a-new-comment-on-a-post">
+<h3>Make a new comment on a post<a class="headerlink" href="#make-a-new-comment-on-a-post" title="Permalink to this headline">¶</a></h3>
+<dl class="post">
+<dt id="post--api-v1-posts-(post_id)-comment">
+<tt class="descname">POST </tt><tt class="descname">/api/v1/posts/</tt><big>(</big><em>post_id</em><big>)</big><tt class="descname">/comment</tt><a class="headerlink" href="#post--api-v1-posts-(post_id)-comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a news <a class="reference internal" href="glossary.html#term-post"><em class="xref std std-term">post</em></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>post_id</strong> (<em>number</em>) &#8211; Post id</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">JSON Parameters:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<li><strong>text</strong> (<em>string</em>) &#8211; comment text</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="glossary.html" class="btn btn-neutral float-right" title="Glossary"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="assignment.html" class="btn btn-neutral" title="Your assignment"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Viktor Miroshnikov.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

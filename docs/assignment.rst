@@ -7,7 +7,6 @@ About assignment
 
 This assignment is a simulation of how a web ui team works in our company. 
 
-
 Goals
 ~~~~~
 
@@ -59,6 +58,13 @@ Workflow
 --------
 
 This is a replica of our company's workflow. You are expected to follow it during the project. 
+
+
+Tools you should use
+~~~~~~~~~~~~~~~~~~~~
+- As you may guessed: AngularJS (routing, directives, templating..)
+- Selenium and protractor.js for acceptance tests
+- Github as repo hosting for your project
 
 Before you start working
 ~~~~~~~~~~~~~~~~~~~~~~~~

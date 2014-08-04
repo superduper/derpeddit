@@ -15,6 +15,13 @@ class PostCreateSerializer(serializers.ModelSerializer):
     def get_current_user(self, obj):
         return self.request.user
 
+    def validate(self, attrs):
+        link = attrs.get("link")
+        text = attrs.get("text")
+        if bool(link) ^ bool(text):
+            raise serializers.ValidationError("Either link or text should be set")
+        return attrs
+
 class CommentSerializer(serializers.ModelSerializer):
     """
     Read-only comment serialization

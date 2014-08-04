@@ -26,7 +26,7 @@ class LoginView(APIView):
             if user:
                 if user.is_active:
                     login(request, user)
-                    return Response(LoginSerializer(user).data)
+                    return Response(ProfileSerializer(user).data)
                 else:
                     return Response({"non_field_errors":"User is inactive"}, status=403)
             else:

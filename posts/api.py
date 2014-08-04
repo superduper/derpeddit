@@ -28,6 +28,8 @@ class PostListView(generics.ListCreateAPIView):
             return PostCreateSerializer(instance, new_data, files, many, partial)
         return PostSerializer(instance, data, files, many, partial)
 
+    def pre_save(self, obj):
+        obj.owner = self.request.user
 
 class CommentListView(generics.ListCreateAPIView):
     authentication_classes = (authentication.SessionAuthentication,)
@@ -35,6 +37,9 @@ class CommentListView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return Comment.objects.filter(post_id=self.kwargs["pk"])
+
+    def pre_save(self, obj):
+        obj.owner = self.request.user
 
     def get_serializer(self, instance=None, data=None, files=None, many=False, partial=False):
         if not instance:

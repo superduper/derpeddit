@@ -10,7 +10,10 @@ class PostCreateSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Post
+    owner = serializers.SerializerMethodField('get_current_user')
 
+	def get_current_user(self, obj):
+		return self.request.user
 
 class CommentSerializer(serializers.ModelSerializer):
     """

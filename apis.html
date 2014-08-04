@@ -161,9 +161,8 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">JSON Parameters:</th></tr>
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><strong>login</strong> (<em>string</em>) &#8211; password</li>
+<li><strong>username</strong> (<em>string</em>) &#8211; password</li>
 <li><strong>password</strong> (<em>string</em>) &#8211; password</li>
-<li><strong>name</strong> (<em>string</em>) &#8211; users last name</li>
 </ul>
 </td>
 </tr>
@@ -180,6 +179,38 @@
 </tr>
 </tbody>
 </table>
+<p><strong>Example request</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/api/v1/core/auth/signup</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Accept-Encoding</span><span class="o">:</span> <span class="l">gzip, deflate</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">55</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json; charset=utf-8</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">derpeddit.herokuapp.com</span>
+
+<span class="p">{</span>
+    <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;derpedditftw&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;derpedditor&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example response</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">CREATED</span>
+<span class="na">Allow</span><span class="o">:</span> <span class="l">POST, OPTIONS</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">keep-alive</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Date</span><span class="o">:</span> <span class="l">Mon, 04 Aug 2014 05:57:32 GMT</span>
+<span class="na">Server</span><span class="o">:</span> <span class="l">gunicorn/19.1.0</span>
+<span class="na">Set-Cookie</span><span class="o">:</span> <span class="l">sessionid=38l4ehqzjq6cz1tbtus22dowdkqge753; expires=Mon, 18-Aug-2014 05:57:32 GMT; httponly; Max-Age=1209600; Path=/</span>
+<span class="na">Transfer-Encoding</span><span class="o">:</span> <span class="l">chunked</span>
+<span class="na">Vary</span><span class="o">:</span> <span class="l">Accept, Cookie</span>
+<span class="na">Via</span><span class="o">:</span> <span class="l">1.1 vegur</span>
+
+<span class="p">{</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;derpedditor&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -211,10 +242,17 @@
 </table>
 <p><strong>Example request</strong>:</p>
 <div class="highlight-http"><div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/api/v1/core/auth/login</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Accept-Encoding</span><span class="o">:</span> <span class="l">gzip, deflate</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">55</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json; charset=utf-8</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">derpeddit.herokuapp.com</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json;charset=UTF-8</span>
+<span class="na">User-Agent</span><span class="o">:</span> <span class="l">HTTPie/0.8.0</span>
 
-<span class="p">{</span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="s2">&quot;bar&quot;</span><span class="p">}</span>
+<span class="p">{</span>
+    <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;derpedditftw&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;derpedditor&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>Example response - incorrect login and password</strong>:</p>
@@ -222,6 +260,24 @@
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 
 <span class="p">{</span><span class="nt">&quot;non_field_errors&quot;</span><span class="p">:</span> <span class="s2">&quot;Login and password do not match&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example response - correct login and password</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Allow</span><span class="o">:</span> <span class="l">POST, OPTIONS</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">keep-alive</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Date</span><span class="o">:</span> <span class="l">Mon, 04 Aug 2014 06:04:58 GMT</span>
+<span class="na">Server</span><span class="o">:</span> <span class="l">gunicorn/19.1.0</span>
+<span class="na">Set-Cookie</span><span class="o">:</span> <span class="l">sessionid=zjherkdqlx9byq1o4lvlh2hil05siafc; expires=Mon, 18-Aug-2014 06:04:58 GMT; httponly; Max-Age=1209600; Path=/</span>
+<span class="na">Transfer-Encoding</span><span class="o">:</span> <span class="l">chunked</span>
+<span class="na">Vary</span><span class="o">:</span> <span class="l">Accept, Cookie</span>
+<span class="na">Via</span><span class="o">:</span> <span class="l">1.1 vegur</span>
+
+<span class="p">{</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;derpedditor&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -232,7 +288,29 @@
 <dl class="post">
 <dt id="post--api-v1-core-auth-logout">
 <tt class="descname">POST </tt><tt class="descname">/api/v1/core/auth/logout</tt><a class="headerlink" href="#post--api-v1-core-auth-logout" title="Permalink to this definition">¶</a></dt>
-<dd><p>De-authenticates user</p>
+<dd><p>De-authenticates current user</p>
+<p><strong>Example request</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/api/v1/core/auth/logout</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">*/*</span>
+<span class="na">Accept-Encoding</span><span class="o">:</span> <span class="l">gzip, deflate</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">0</span>
+<span class="na">Cookie</span><span class="o">:</span>  <span class="l">sessionid=qn010o0pgx75qbz1umvo15hxc425nep5</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">derpeddit.herokuapp.com</span>
+<span class="na">User-Agent</span><span class="o">:</span> <span class="l">HTTPie/0.8.0</span>
+</pre></div>
+</div>
+<p><strong>Example response</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Allow</span><span class="o">:</span> <span class="l">POST, OPTIONS</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">keep-alive</span>
+<span class="na">Date</span><span class="o">:</span> <span class="l">Mon, 04 Aug 2014 06:22:07 GMT</span>
+<span class="na">Server</span><span class="o">:</span> <span class="l">gunicorn/19.1.0</span>
+<span class="na">Set-Cookie</span><span class="o">:</span> <span class="l">sessionid=uvg092xpk5g50aeuhqn5nfec0t3mvnxv; expires=Mon, 18-Aug-2014 06:22:07 GMT; httponly; Max-Age=1209600; Path=/</span>
+<span class="na">Transfer-Encoding</span><span class="o">:</span> <span class="l">chunked</span>
+<span class="na">Vary</span><span class="o">:</span> <span class="l">Accept, Cookie</span>
+<span class="na">Via</span><span class="o">:</span> <span class="l">1.1 vegur</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -242,6 +320,32 @@
 <dt id="get--api-v1-core-auth-profile">
 <tt class="descname">GET </tt><tt class="descname">/api/v1/core/auth/profile</tt><a class="headerlink" href="#get--api-v1-core-auth-profile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns current user profile</p>
+<p><strong>Example request</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="nf">GET</span> <span class="nn">/api/v1/core/auth/profile</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">*/*</span>
+<span class="na">Accept-Encoding</span><span class="o">:</span> <span class="l">gzip, deflate</span>
+<span class="na">Cookie</span><span class="o">:</span>  <span class="l">sessionid=qn010o0pgx75qbz1umvo15hxc425nep5</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">derpeddit.herokuapp.com</span>
+<span class="na">User-Agent</span><span class="o">:</span> <span class="l">HTTPie/0.8.0</span>
+</pre></div>
+</div>
+<p><strong>Example response</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Allow</span><span class="o">:</span> <span class="l">GET, HEAD, OPTIONS</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">keep-alive</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Date</span><span class="o">:</span> <span class="l">Mon, 04 Aug 2014 06:03:50 GMT</span>
+<span class="na">Server</span><span class="o">:</span> <span class="l">gunicorn/19.1.0</span>
+<span class="na">Transfer-Encoding</span><span class="o">:</span> <span class="l">chunked</span>
+<span class="na">Vary</span><span class="o">:</span> <span class="l">Accept, Cookie</span>
+<span class="na">Via</span><span class="o">:</span> <span class="l">1.1 vegur</span>
+
+<span class="p">{</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;derpedditor&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -255,6 +359,56 @@
 <tt class="descname">GET </tt><tt class="descname">/api/v1/posts</tt><a class="headerlink" href="#get--api-v1-posts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns all posts
 :param string mode: to sort posts by vote score - <cite>top</cite>, to sort by create time - <cite>newest</cite></p>
+<p><strong>Example request</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="nf">GET</span> <span class="nn">/api/v1/posts</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">*/*</span>
+<span class="na">Accept-Encoding</span><span class="o">:</span> <span class="l">gzip, deflate</span>
+<span class="na">Cookie</span><span class="o">:</span>  <span class="l">sessionid=kku4ymfeacxkknxbcma7yc0m9e1jz3bb</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">derpeddit.herokuapp.com</span>
+<span class="na">User-Agent</span><span class="o">:</span> <span class="l">HTTPie/0.8.0</span>
+</pre></div>
+</div>
+<p><strong>Example response</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Allow</span><span class="o">:</span> <span class="l">GET, POST, HEAD, OPTIONS</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">keep-alive</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Date</span><span class="o">:</span> <span class="l">Mon, 04 Aug 2014 07:23:45 GMT</span>
+<span class="na">Server</span><span class="o">:</span> <span class="l">gunicorn/19.1.0</span>
+<span class="na">Transfer-Encoding</span><span class="o">:</span> <span class="l">chunked</span>
+<span class="na">Vary</span><span class="o">:</span> <span class="l">Accept, Cookie</span>
+<span class="na">Via</span><span class="o">:</span> <span class="l">1.1 vegur</span>
+
+<span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;comments_total&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2014-08-04T07:21:18.868Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="nt">&quot;link&quot;</span><span class="p">:</span> <span class="s2">&quot;http://google.com&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="nt">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;derpedditor&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;score&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;text&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;yawn&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;comments_total&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2014-08-04T07:20:55.254Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="nt">&quot;link&quot;</span><span class="p">:</span> <span class="s2">&quot;http://bing.com&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="nt">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;derpedditor&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;score&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;text&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;ayawn&quot;</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -278,6 +432,40 @@
 </tr>
 </tbody>
 </table>
+<p><strong>Example request</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/api/v1/posts</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Accept-Encoding</span><span class="o">:</span> <span class="l">gzip, deflate</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">46</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json; charset=utf-8</span>
+<span class="na">Cookie</span><span class="o">:</span>  <span class="l">sessionid=kku4ymfeacxkknxbcma7yc0m9e1jz3bb</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">derpeddit.herokuapp.com</span>
+<span class="na">User-Agent</span><span class="o">:</span> <span class="l">HTTPie/0.8.0</span>
+
+<span class="p">{</span>
+    <span class="nt">&quot;link&quot;</span><span class="p">:</span> <span class="s2">&quot;http://google.com&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;yawn&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example response</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">CREATED</span>
+<span class="na">Allow</span><span class="o">:</span> <span class="l">GET, POST, HEAD, OPTIONS</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">keep-alive</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Date</span><span class="o">:</span> <span class="l">Mon, 04 Aug 2014 07:21:18 GMT</span>
+<span class="na">Server</span><span class="o">:</span> <span class="l">gunicorn/19.1.0</span>
+<span class="na">Transfer-Encoding</span><span class="o">:</span> <span class="l">chunked</span>
+<span class="na">Vary</span><span class="o">:</span> <span class="l">Accept, Cookie</span>
+<span class="na">Via</span><span class="o">:</span> <span class="l">1.1 vegur</span>
+
+<span class="p">{</span>
+    <span class="nt">&quot;link&quot;</span><span class="p">:</span> <span class="s2">&quot;http://google.com&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;text&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;yawn&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -286,7 +474,7 @@
 <dl class="put">
 <dt id="put--api-v1-posts-(post_id)-vote">
 <tt class="descname">PUT </tt><tt class="descname">/api/v1/posts/</tt><big>(</big><em>post_id</em><big>)</big><tt class="descname">/vote</tt><a class="headerlink" href="#put--api-v1-posts-(post_id)-vote" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a news <a class="reference internal" href="glossary.html#term-post"><em class="xref std std-term">post</em></a></p>
+<dd><p>Votes +1 post</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -304,6 +492,37 @@
 </tr>
 </tbody>
 </table>
+<p><strong>Example request</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="nf">PUT</span> <span class="nn">/api/v1/posts/2/vote</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Accept-Encoding</span><span class="o">:</span> <span class="l">gzip, deflate</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">18</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json; charset=utf-8</span>
+<span class="na">Cookie</span><span class="o">:</span>  <span class="l">sessionid=kku4ymfeacxkknxbcma7yc0m9e1jz3bb</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">derpeddit.herokuapp.com</span>
+<span class="na">User-Agent</span><span class="o">:</span> <span class="l">HTTPie/0.8.0</span>
+
+<span class="p">{</span>
+    <span class="nt">&quot;positive&quot;</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example response</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Allow</span><span class="o">:</span> <span class="l">PUT, OPTIONS</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">keep-alive</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Date</span><span class="o">:</span> <span class="l">Mon, 04 Aug 2014 07:30:19 GMT</span>
+<span class="na">Server</span><span class="o">:</span> <span class="l">gunicorn/19.1.0</span>
+<span class="na">Transfer-Encoding</span><span class="o">:</span> <span class="l">chunked</span>
+<span class="na">Vary</span><span class="o">:</span> <span class="l">Accept, Cookie</span>
+<span class="na">Via</span><span class="o">:</span> <span class="l">1.1 vegur</span>
+
+<span class="p">{</span>
+    <span class="nt">&quot;new_post_score&quot;</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -312,7 +531,7 @@
 <dl class="put">
 <dt id="put--api-v1-posts-(post_id)-vote">
 <tt class="descname">PUT </tt><tt class="descname">/api/v1/posts/</tt><big>(</big><em>post_id</em><big>)</big><tt class="descname">/vote</tt><a class="headerlink" href="#put--api-v1-posts-(post_id)-vote" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a news <a class="reference internal" href="glossary.html#term-post"><em class="xref std std-term">post</em></a></p>
+<dd><p>Votes -1 a <a class="reference internal" href="glossary.html#term-post"><em class="xref std std-term">post</em></a></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -330,6 +549,37 @@
 </tr>
 </tbody>
 </table>
+<p><strong>Example request</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="nf">PUT</span> <span class="nn">/api/v1/posts/2/vote</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Accept-Encoding</span><span class="o">:</span> <span class="l">gzip, deflate</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">18</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json; charset=utf-8</span>
+<span class="na">Cookie</span><span class="o">:</span>  <span class="l">sessionid=kku4ymfeacxkknxbcma7yc0m9e1jz3bb</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">derpeddit.herokuapp.com</span>
+<span class="na">User-Agent</span><span class="o">:</span> <span class="l">HTTPie/0.8.0</span>
+
+<span class="p">{</span>
+    <span class="nt">&quot;negative&quot;</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example response</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Allow</span><span class="o">:</span> <span class="l">PUT, OPTIONS</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">keep-alive</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Date</span><span class="o">:</span> <span class="l">Mon, 04 Aug 2014 07:30:19 GMT</span>
+<span class="na">Server</span><span class="o">:</span> <span class="l">gunicorn/19.1.0</span>
+<span class="na">Transfer-Encoding</span><span class="o">:</span> <span class="l">chunked</span>
+<span class="na">Vary</span><span class="o">:</span> <span class="l">Accept, Cookie</span>
+<span class="na">Via</span><span class="o">:</span> <span class="l">1.1 vegur</span>
+
+<span class="p">{</span>
+    <span class="nt">&quot;new_post_score&quot;</span><span class="p">:</span> <span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -338,24 +588,61 @@
 <dl class="get">
 <dt id="get--api-v1-posts-(post_id)-comment">
 <tt class="descname">GET </tt><tt class="descname">/api/v1/posts/</tt><big>(</big><em>post_id</em><big>)</big><tt class="descname">/comment</tt><a class="headerlink" href="#get--api-v1-posts-(post_id)-comment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a news <a class="reference internal" href="glossary.html#term-post"><em class="xref std std-term">post</em></a></p>
+<dd><p>Returns all comments left for term:<cite>post</cite></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>post_id</strong> (<em>number</em>) &#8211; Post id</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">JSON Parameters:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
-<li><strong>positive</strong> (<em>bool</em>) &#8211; must be true</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<p><strong>Example request</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="nf">GET</span> <span class="nn">/api/v1/posts/2/comment</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">*/*</span>
+<span class="na">Accept-Encoding</span><span class="o">:</span> <span class="l">gzip, deflate</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">derpeddit.herokuapp.com</span>
+<span class="na">User-Agent</span><span class="o">:</span> <span class="l">HTTPie/0.8.0</span>
+</pre></div>
+</div>
+<p><strong>Example response</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Allow</span><span class="o">:</span> <span class="l">GET, POST, HEAD, OPTIONS</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">keep-alive</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Date</span><span class="o">:</span> <span class="l">Mon, 04 Aug 2014 08:01:32 GMT</span>
+<span class="na">Server</span><span class="o">:</span> <span class="l">gunicorn/19.1.0</span>
+<span class="na">Transfer-Encoding</span><span class="o">:</span> <span class="l">chunked</span>
+<span class="na">Vary</span><span class="o">:</span> <span class="l">Accept, Cookie</span>
+<span class="na">Via</span><span class="o">:</span> <span class="l">1.1 vegur</span>
+
+<span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2014-08-04T07:59:53.763Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="nt">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;derpedditor&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;post&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="nt">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;huh?&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2014-08-04T07:59:43.340Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="nt">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;derpedditor&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;post&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="nt">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;meh&quot;</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -364,7 +651,7 @@
 <dl class="post">
 <dt id="post--api-v1-posts-(post_id)-comment">
 <tt class="descname">POST </tt><tt class="descname">/api/v1/posts/</tt><big>(</big><em>post_id</em><big>)</big><tt class="descname">/comment</tt><a class="headerlink" href="#post--api-v1-posts-(post_id)-comment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a news <a class="reference internal" href="glossary.html#term-post"><em class="xref std std-term">post</em></a></p>
+<dd><p>Makes a new comments for a term:<cite>post</cite></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -382,6 +669,44 @@
 </tr>
 </tbody>
 </table>
+<p><strong>Example request</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/api/v1/posts/2/comment</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Accept-Encoding</span><span class="o">:</span> <span class="l">gzip, deflate</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">16</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json; charset=utf-8</span>
+<span class="na">Cookie</span><span class="o">:</span>  <span class="l">sessionid=kku4ymfeacxkknxbcma7yc0m9e1jz3bb</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">derpeddit.herokuapp.com</span>
+<span class="na">User-Agent</span><span class="o">:</span> <span class="l">HTTPie/0.8.0</span>
+
+<span class="p">{</span>
+    <span class="nt">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;huh?&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example response</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">CREATED</span>
+<span class="na">Allow</span><span class="o">:</span> <span class="l">GET, POST, HEAD, OPTIONS</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">keep-alive</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Date</span><span class="o">:</span> <span class="l">Mon, 04 Aug 2014 07:59:53 GMT</span>
+<span class="na">Server</span><span class="o">:</span> <span class="l">gunicorn/19.1.0</span>
+<span class="na">Transfer-Encoding</span><span class="o">:</span> <span class="l">chunked</span>
+<span class="na">Vary</span><span class="o">:</span> <span class="l">Accept, Cookie</span>
+<span class="na">Via</span><span class="o">:</span> <span class="l">1.1 vegur</span>
+
+<span class="p">{</span>
+    <span class="nt">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2014-08-04T07:59:53.763Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="nt">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;derpedditor&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;post&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;huh?&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>

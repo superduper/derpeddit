@@ -120,7 +120,7 @@ INSTALLED_APPS = (
     'django.contrib.webdesign',
     'core',
     'posts',
-    'guardian'
+    'guardian',
     'corsheaders',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',

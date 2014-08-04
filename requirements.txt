@@ -6,3 +6,4 @@ django-guardian
 gunicorn
 dj-database-url
 dj-static
+psycopg2

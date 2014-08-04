@@ -14,7 +14,12 @@ Goals
 This assignment goal is to get know about your:
 
 * technical skills in angular js and html overall
-** routing, directives, templating 
+ 
+  * angular routing
+  * angular directives
+  * angular templating 
+  * twitter bootstrap framework
+
 * familiarity with vcs, testing tools
 * communication
 * discipline
@@ -56,7 +61,7 @@ Workflow
 This is a replica of our company's workflow. You are expected to follow it during the project. 
 
 Before you start working
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Make a day plan:
 
@@ -68,7 +73,7 @@ Make a day plan:
    - Add estimate tag
 
 Work on tasks
--------------
+~~~~~~~~~~~~~
 
 Before you start on task
 
